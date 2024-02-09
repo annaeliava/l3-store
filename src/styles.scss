@@ -41,6 +41,14 @@ body {
   margin-right: auto;
 }
 
+.header {
+  &__buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 25px;
+  }
+}
+
 a {
   color: inherit;
 
@@ -89,6 +97,7 @@ img {
   background: none;
   padding: 0;
   margin: 0;
+  cursor: pointer;
 
   svg {
     width: 32px;
@@ -105,6 +114,7 @@ img {
   background: linear-gradient(102.42deg, #da15b8 59.69%, #8d06cc);
   color: #fff;
   font-weight: bold;
+  cursor: pointer;
 
   &:hover {
     background: var(--key-color-dark);
@@ -120,11 +130,13 @@ img {
   }
 }
 
-.cart {
+.cart,
+.fav {
   position: relative;
 }
 
-.cartCounter {
+.cartCounter,
+.favCounter {
   position: absolute;
   right: -21px;
   top: -10px;
