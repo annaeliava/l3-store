@@ -32,7 +32,10 @@ class Checkout extends Component {
     await cartService.clear();
     fetch('/api/makeOrder', {
       method: 'POST',
-      body: JSON.stringify(this.products)
+      body: JSON.stringify(this.products),
+      headers: {
+        'x-userid': window.userId
+      }
     });
     window.location.href = '/?isSuccessOrder';
   }
