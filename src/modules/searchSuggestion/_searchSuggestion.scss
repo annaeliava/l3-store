@@ -1,0 +1,39 @@
+.suggestion {
+    padding: 4px 6px 8px 6px;
+    width: fit-content;
+    height: 36px;
+    background: rgba(246, 246, 250, 1);
+    border-radius: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &__text {
+        font-family: inherit;
+        font-size: 22px;
+        font-weight: 550;
+        line-height: 24px;
+        background-color: var(--key-color);
+        background-image: linear-gradient(45deg,#da15b8, #8d06cc);
+        background-repeat: repeat;
+        background-size: 100%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+        &__conjunction {
+            gap: 10px;
+        }
+
+        &__punctuation {
+            gap: 3px;
+        }
+    }
+}
