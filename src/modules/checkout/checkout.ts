@@ -3,6 +3,7 @@ import { Product } from '../product/product';
 import html from './checkout.tpl.html';
 import { formatPrice } from '../../utils/helpers';
 import { cartService } from '../../services/cart.service';
+import { analyticsService } from '../../services/analytics.service';
 import { ProductData } from 'types';
 
 class Checkout extends Component {
@@ -30,10 +31,19 @@ class Checkout extends Component {
 
   private async _makeOrder() {
     await cartService.clear();
-    fetch('/api/makeOrder', {
-      method: 'POST',
-      body: JSON.stringify(this.products)
-    });
+
+    const totalPrice = Math.round(this.products.reduce((acc, product) => (acc += product.salePriceU), 0) / 1000);
+    const orderedItemsIds = this.products.map((product) => { return product.id });
+    const data = analyticsService.purchase(totalPrice, orderedItemsIds);
+
+    const postPurchase = () => {
+      navigator.sendBeacon('/api/sendEvent', JSON.stringify(data));
+      navigator.sendBeacon('/api/makeOrder', JSON.stringify(this.products));
+    }
+
+    window.addEventListener('unload', postPurchase, false);
+    window.addEventListener('visibilitychange', postPurchase);
+
     window.location.href = '/?isSuccessOrder';
   }
 }

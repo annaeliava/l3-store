@@ -20,5 +20,5 @@ export class Component {
     this.render();
   }
 
-  render() {}
+  render() { }
 }

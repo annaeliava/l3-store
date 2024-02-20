@@ -39,6 +39,7 @@ export type ProductData = {
     salePrice: number;
     salePriceU: number;
     saleConditions: number;
+    secretKey?: string;
     siteBrandId: number;
     logisticsCost?: number;
     volume?: number;
@@ -56,4 +57,10 @@ export type ProductData = {
     log?: any;
     src: string;
     description: string;
+}
+
+export type AnalyticsEvent = {
+    type: string,
+    payload: object,
+    timestamp: number
 }
