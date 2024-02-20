@@ -3,15 +3,20 @@ import { Component } from '../component';
 import html from './homepage.tpl.html';
 
 import { ProductList } from '../productList/productList';
+import { SearchBar } from '../searchBar/searchBar';
 
 class Homepage extends Component {
   popularProducts: ProductList;
+  searchBar: any;
 
   constructor(props: any) {
     super(props);
 
     this.popularProducts = new ProductList();
     this.popularProducts.attach(this.view.popular);
+
+    this.searchBar = new SearchBar();
+    this.searchBar.attach(this.view.search);
   }
 
   render() {
@@ -29,6 +34,8 @@ class Homepage extends Component {
           'Заказ оформлен. Деньги спишутся с вашей карты, менеджер может позвонить, чтобы уточнить детали доставки'
       });
     }
+
+    this.searchBar.update(['чехол iphone 13 pro', 'коляски agex', 'яндекс станция 2']);
   }
 }
 
