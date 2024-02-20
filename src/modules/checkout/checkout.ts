@@ -34,12 +34,16 @@ class Checkout extends Component {
 
     const totalPrice = Math.round(this.products.reduce((acc, product) => (acc += product.salePriceU), 0) / 1000);
     const orderedItemsIds = this.products.map((product) => { return product.id });
-    analyticsService.purchase(totalPrice, orderedItemsIds);
+    const data = analyticsService.purchase(totalPrice, orderedItemsIds);
 
-    fetch('/api/makeOrder', {
-      method: 'POST',
-      body: JSON.stringify(this.products)
-    });
+    const postPurchase = () => {
+      navigator.sendBeacon('/api/sendEvent', JSON.stringify(data));
+      navigator.sendBeacon('/api/makeOrder', JSON.stringify(this.products));
+    }
+
+    window.addEventListener('unload', postPurchase, false);
+    window.addEventListener('visibilitychange', postPurchase);
+
     window.location.href = '/?isSuccessOrder';
   }
 }

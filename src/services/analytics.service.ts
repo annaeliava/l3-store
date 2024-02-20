@@ -42,7 +42,7 @@ class AnalyticsService {
     }
 
     purchase(totalPrice: number, productsId: Array<number>) {
-        const data = {
+        return {
             type: 'purchase',
             payload: {
                 orderId: Date.now(),
@@ -51,7 +51,6 @@ class AnalyticsService {
             },
             timestamp: Date.now()
         }
-        this.sendEvent(data);
     }
 
     private async sendEvent(data: AnalyticsEvent): Promise<void> {
