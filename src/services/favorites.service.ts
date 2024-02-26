@@ -37,9 +37,9 @@ class FavoritesService {
         let count: any;
 
         if (products.length <= 0) {
-            document.querySelector('.fav')?.classList.add('.hide');
+            document.querySelector('.fav')?.classList.add('hide');
         } else if (products.length >= 0) {
-            document.querySelector('.fav')?.classList.remove('.hide');
+            document.querySelector('.fav')?.classList.remove('hide');
             count = products.length >= 10 ? '9+' : products.length;
         }
 
