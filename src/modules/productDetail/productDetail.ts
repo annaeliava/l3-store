@@ -34,12 +34,13 @@ class ProductDetail extends Component {
     this.view.price.innerText = formatPrice(salePriceU);
     this.view.btnBuy.onclick = this._addToCart.bind(this);
     this.view.btnFav.onclick = this._toggleFavorite.bind(this);
+    this.view.btnFavSvg.onclick = this._toggleFavoritesHeart.bind(this);
 
     const isInCart = await cartService.isInCart(this.product);
     if (isInCart) this._setInCart();
 
     const isFavorite = await favoritesService.isFavorite(this.product);
-    if (isFavorite) this._setInFavorites();
+    if (isFavorite) this.view.btnFavSvgUse.href.baseVal = '#heart-clicked';
 
 
     fetch(`/api/getProductSecretKey?id=${id}`)
@@ -58,21 +59,19 @@ class ProductDetail extends Component {
   private async _toggleFavorite() {
     if (!this.product) return;
 
-    if (await favoritesService.isFavorite(this.product)) {
-      favoritesService.removeFavorite(this.product);
-      this._removeFromFavorites();
-    } else {
+    await favoritesService.isFavorite(this.product) ?
+      favoritesService.removeFavorite(this.product)
+      :
       favoritesService.addFavorite(this.product);
-      this._setInFavorites();
-    }
   }
 
-  private _setInFavorites() {
-    this.view.btnFavSvg.innerHTML = '<use xlink:href="#heart-clicked"></use>';
-  }
+  private async _toggleFavoritesHeart() {
+    if (!this.product) return;
 
-  private _removeFromFavorites() {
-    this.view.btnFavSvg.innerHTML = '<use xlink:href="#heart"></use>'
+    await favoritesService.isFavorite(this.product) ?
+      this.view.btnFavSvgUse.href.baseVal = '#heart'
+      :
+      this.view.btnFavSvgUse.href.baseVal = '#heart-clicked';
   }
 
   private _addToCart() {

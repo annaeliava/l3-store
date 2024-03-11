@@ -36,10 +36,9 @@ class FavoritesService {
 
         let count: any;
 
-        if (products.length <= 0) {
-            document.querySelector('.fav')?.classList.add('hide');
-        } else if (products.length >= 0) {
-            document.querySelector('.fav')?.classList.remove('hide');
+        document.querySelector('.js__fav')?.classList.toggle('hide', products.length <= 0);
+
+        if (products.length >= 0) {
             count = products.length >= 10 ? '9+' : products.length;
         }
 
