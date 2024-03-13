@@ -6,6 +6,7 @@ const ID_DB = '__wb-userId';
 class UserService {
   async init() {
     const id = await this.getId();
+    (window as { [key: string]: any })["userId"] = id;
     console.warn('UserID: ', id);
   }
 
